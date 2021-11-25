@@ -1,2 +1,2 @@
 # otb-chess
-Website to organise chess meetups IRL
+Website to organise chess meetups IRL.
