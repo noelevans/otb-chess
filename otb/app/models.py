@@ -7,26 +7,30 @@ class Coord(models.Model):
 
 
 class Player(models.Model):
-    name
-    games
-    missed_games
+    name = models.TextField(max_length=256)
+    email = models.EmailField()
+    biography = models.TextField(max_length=1024)
+    default_contact_info = models.TextField(max_length=1024)
     member_since = models.DateTimeField()
+    rating_lichess = models.IntegerField()
+    rating_chessdotcom = models.IntegerField()
+    rating_fide = models.IntegerField()
 
 
 class Game(models.Model):
     proposer = models.ForeignKey(Player)
+    opponent = models.ForeignKey(Player)
     description = models.TextField(max_length=2048)
     location_description = models.TextField(max_length=512)
     location_coords = models.ForeignKey(Coord)
     start_time = models.DateTimeField()
+    with_set = models.BooleanField()
+    proposer_attended = models.BooleanField(initial=True)
+    opponent_attended = models.BooleanField(initial=True)
 
 
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField("date published")
-
-
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
+class Message(models.Model):
+    sender = models.ForeignKey(Player)
+    recipient = models.ForeignKey(Player)
+    content = models.TextField(max_length=2048)
+    sent_time = models.DateTimeField()
