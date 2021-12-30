@@ -1,0 +1,9 @@
+{% if games %}
+    <ul>
+    {% for game in games %}
+        <li>{{ game.description }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No games with these criteria</p>
+{% endif %}

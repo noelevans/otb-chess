@@ -1,7 +1,8 @@
 from django.db import models
 
 
-class Coord(models.Model):
+class Address(models.Model):
+    formatted = models.TextField(max_length=256)
     latitude = model.FloatField()
     longitude = model.FloatField()
 
@@ -20,9 +21,10 @@ class Player(models.Model):
 class Game(models.Model):
     proposer = models.ForeignKey(Player)
     opponent = models.ForeignKey(Player)
+    group_event = models.BooleanField()
     description = models.TextField(max_length=2048)
     location_description = models.TextField(max_length=512)
-    location_coords = models.ForeignKey(Coord)
+    location_coords = models.ForeignKey(Address)
     start_time = models.DateTimeField()
     with_set = models.BooleanField()
     proposer_attended = models.BooleanField(initial=True)
